@@ -52,10 +52,10 @@ finding carries the policy chunk ids that support it.
 
 Run with: `python -m src.evaluation.run_evaluation`
 
-- **Decision accuracy: 12/12 public + 5/5 custom = 100%**
+- **Decision accuracy: 12/12 public + 5/5 custom = 17/17 (100%)**
 - Validation (citation-grounding) PASS rate: **100%**
-- Mean confidence: 0.84 · Mean latency: ~3.6 s/case (single process)
-- Mean citation recall@k against curated gold clauses: ~38% (see "Known limits")
+- Mean confidence: 0.84 · Mean latency: 3.35 s/case (single process)
+- Mean citation recall@k against curated gold clauses: **61.8%** (see "Known limits")
 
 ## Quickstart
 
@@ -177,7 +177,7 @@ README.md
 
 ### Known limits
 
-- **Citation recall@k (~38%).** Gold-clause recall is limited because the
+- **Citation recall@k (61.8%).** Gold-clause recall is limited because the
    orchestrator reserves one citation slot per final finding, with a maximum
    of 12 findings. Retrieval itself recovers the gold clauses in 74% of
    curated cases; the cap is a deliberate conciseness/safety trade-off.
