@@ -20,6 +20,8 @@ venv/
 # Outputs
 backend/output/*.json
 backend/output/*.md
+!backend/output/evaluation_report.json
+!backend/output/evaluation_report.md
 
 # OS
 .DS_Store

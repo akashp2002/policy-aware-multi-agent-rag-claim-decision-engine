@@ -1,0 +1,684 @@
+{
+  "summary": {
+    "num_cases": 17,
+    "decision_accuracy": 1.0,
+    "validation_pass_rate": 1.0,
+    "mean_citation_recall": 0.618,
+    "citation_coverage": 1.0,
+    "mean_confidence": 0.838,
+    "mean_latency_s": 3.35,
+    "num_correct": 17
+  },
+  "confusion_matrix": {
+    "ADMISSIBLE": {
+      "ADMISSIBLE": 2,
+      "ADMISSIBLE_WITH_LIMITS": 0,
+      "NEEDS_REVIEW": 0,
+      "NOT_ADMISSIBLE": 0
+    },
+    "ADMISSIBLE_WITH_LIMITS": {
+      "ADMISSIBLE": 0,
+      "ADMISSIBLE_WITH_LIMITS": 6,
+      "NEEDS_REVIEW": 0,
+      "NOT_ADMISSIBLE": 0
+    },
+    "NEEDS_REVIEW": {
+      "ADMISSIBLE": 0,
+      "ADMISSIBLE_WITH_LIMITS": 0,
+      "NEEDS_REVIEW": 3,
+      "NOT_ADMISSIBLE": 0
+    },
+    "NOT_ADMISSIBLE": {
+      "ADMISSIBLE": 0,
+      "ADMISSIBLE_WITH_LIMITS": 0,
+      "NEEDS_REVIEW": 0,
+      "NOT_ADMISSIBLE": 6
+    }
+  },
+  "cases": [
+    {
+      "split": "public",
+      "case_id": "PUB-001",
+      "expected": "ADMISSIBLE_WITH_LIMITS",
+      "predicted": "ADMISSIBLE_WITH_LIMITS",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P08-0023",
+        "P08-0024"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 24.32,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=14, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=14, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=14; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 30,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 5,000, post_hosp_expense=INR 7,000; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 1,200; amount above cap by INR 200 is deductible",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Sunrise Multispeciality', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-002",
+      "expected": "NOT_ADMISSIBLE",
+      "predicted": "NOT_ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.92,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P09-0026"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 4.1,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=0, prior_insurer_years=0; initial_waiting_days=30; claim falls within the initial waiting period => NOT ADMISSIBLE",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=0, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=0; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 20,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 0; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='City Care Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-003",
+      "expected": "NOT_ADMISSIBLE",
+      "predicted": "NOT_ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.92,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 0.5,
+      "gold_chunks": [
+        "P05-0014",
+        "P08-0023"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P08-0023",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 4.38,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=27, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=27, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=True, continuous_coverage_months=27; ped_waiting_months=48; PED waiting period NOT satisfied (27 < 48 months) => NOT ADMISSIBLE",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 20,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 8,000, post_hosp_expense=INR 9,000; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Metro Heart Centre', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-004",
+      "expected": "ADMISSIBLE_WITH_LIMITS",
+      "predicted": "ADMISSIBLE_WITH_LIMITS",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 7,
+      "num_limits": 1,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P07-0020",
+        "P07-0021"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0021",
+        "P08-0024",
+        "P09-0027"
+      ],
+      "latency_s": 8.26,
+      "key_findings": [
+        "hospitalization_definition: type=domiciliary, admission_hours=0; domiciliary assessed under its specific conditions",
+        "waiting_period: continuous_coverage_months=28, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=28, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=28; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "domiciliary: domiciliary sub-limit=20% of SI => INR 100,000; room_unavailable=True, cannot_be_moved=False; domiciliary conditions satisfied",
+        "day_care: procedure=Domiciliary treatment; procedure is within the day-care / 24h-waiver list",
+        "exclusion: no matching exclusion found in retrieved policy clauses"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-005",
+      "expected": "ADMISSIBLE",
+      "predicted": "ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.97,
+      "validation": "PASS",
+      "num_citations": 7,
+      "num_limits": 0,
+      "citation_recall": 0.5,
+      "gold_chunks": [
+        "P09-0026",
+        "P07-0021"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P08-0024",
+        "P09-0027",
+        "P02-0006"
+      ],
+      "latency_s": 0.02,
+      "key_findings": [
+        "hospitalization_definition: type=day_care, admission_hours=8; day-care qualifies under the 24h-waiver provisions",
+        "waiting_period: continuous_coverage_months=29, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=['cataract']; continuous_coverage_months=29, prior_insurer_years=0; first-year disease waiting period satisfied (continuous/prior coverage)",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=29; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "day_care: procedure=Eye surgery; procedure is within the day-care / 24h-waiver list",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Advanced Care', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-006",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NEEDS_REVIEW",
+      "correct": true,
+      "confidence": 0.47,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 0.0,
+      "gold_chunks": [
+        "P11-0032",
+        "P10-0031"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.03,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=30, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=30, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=30; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 30,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 4,000, post_hosp_expense=INR 6,000; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 500",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Prime Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-007",
+      "expected": "ADMISSIBLE_WITH_LIMITS",
+      "predicted": "ADMISSIBLE_WITH_LIMITS",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P08-0024"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.03,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=31, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=['skin/internal tumors']; continuous_coverage_months=31, prior_insurer_years=0; first-year disease waiting period satisfied (continuous/prior coverage)",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=31; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 10,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 80,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-l",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 10,000, post_hosp_expense=INR 15,000; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 1,500; amount above cap by INR 500 is deductible",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Specialist Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-008",
+      "expected": "NOT_ADMISSIBLE",
+      "predicted": "NOT_ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.92,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 0.5,
+      "gold_chunks": [
+        "P09-0027",
+        "P09-0028"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.02,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=32, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=32, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=32; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 10,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 0; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: cosmetic/aesthetic treatment is excluded (exclusion 5)",
+        "hospital_eligibility: hospital='Wellness Centre', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-009",
+      "expected": "ADMISSIBLE_WITH_LIMITS",
+      "predicted": "ADMISSIBLE_WITH_LIMITS",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P08-0024"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.02,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=32, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=32, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=32; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 15,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 9,000, post_hosp_expense=INR 12,000; pre timing 30d within 30d window; post timing 60d within 60d window",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 800",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Recovery Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-010",
+      "expected": "ADMISSIBLE",
+      "predicted": "ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.97,
+      "validation": "PASS",
+      "num_citations": 8,
+      "num_limits": 0,
+      "citation_recall": 0.0,
+      "gold_chunks": [
+        "P13-0038",
+        "P12-0037"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P08-0024",
+        "P09-0027",
+        "P02-0006",
+        "P05-0014"
+      ],
+      "latency_s": 4.77,
+      "key_findings": [
+        "hospitalization_definition: type=day_care, admission_hours=8; day-care qualifies under the 24h-waiver provisions",
+        "waiting_period: continuous_coverage_months=8, prior_insurer_years=1; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=['cataract']; continuous_coverage_months=8, prior_insurer_years=1; first-year disease waiting period satisfied (continuous/prior coverage)",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=8; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "day_care: procedure=Eye surgery; procedure is within the day-care / 24h-waiver list",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Vision Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement",
+        "portability: prior continuous years=1.0, database_and_history_received=True; portability_waiting_reduction_clause_found=True; prior continuous coverage may reduce the PED waiting period"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-011",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NEEDS_REVIEW",
+      "correct": true,
+      "confidence": 0.47,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 0.0,
+      "gold_chunks": [
+        "P11-0032",
+        "P10-0031"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P02-0006"
+      ],
+      "latency_s": 3.45,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=32, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=32, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=32; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 15,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 0; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Unknown Care Facility', network_provider=False, registered=None, minimum_criteria_documented=False; hospital minimum criteria documented as NOT met => INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    {
+      "split": "public",
+      "case_id": "PUB-012",
+      "expected": "NOT_ADMISSIBLE",
+      "predicted": "NOT_ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.92,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 0.5,
+      "gold_chunks": [
+        "P06-0017",
+        "P09-0028"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P06-0017",
+        "P02-0006"
+      ],
+      "latency_s": 7.45,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=32, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=32, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=32; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 20,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 0; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: experimental/unproven treatment is excluded by the policy definition",
+        "hospital_eligibility: hospital='Research Medical Centre', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "custom",
+      "case_id": "CUS-001",
+      "expected": "ADMISSIBLE_WITH_LIMITS",
+      "predicted": "ADMISSIBLE_WITH_LIMITS",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P08-0023",
+        "P08-0024"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.03,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=72; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=29, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=29, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=29; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 60,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 12,000, post_hosp_expense=INR 15,000; pre timing 15d within 30d window; post timing 45d within 60d window",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 2,500; amount above cap by INR 1,500 is deductible",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Advanced Cardiac Institute', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "custom",
+      "case_id": "CUS-002",
+      "expected": "NOT_ADMISSIBLE",
+      "predicted": "NOT_ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.92,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P09-0026"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.02,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=48; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=2, prior_insurer_years=0; initial_waiting_days=30",
+        "specific_disease_waiting: matched_first_year_diseases=['tonsils and sinuses']; continuous_coverage_months=2, prior_insurer_years=0; first-year waiting period applies to listed disease and is NOT satisfied => NOT ADMISSIBLE",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=2; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 12,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-li",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 2,000; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Green Valley Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "custom",
+      "case_id": "CUS-003",
+      "expected": "ADMISSIBLE_WITH_LIMITS",
+      "predicted": "ADMISSIBLE_WITH_LIMITS",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 1.0,
+      "gold_chunks": [
+        "P08-0023"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P08-0025"
+      ],
+      "latency_s": 0.03,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=28, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=28, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=28; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 5,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 8,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-lim",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 0; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Metro General Hospital', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    },
+    {
+      "split": "custom",
+      "case_id": "CUS-004",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NEEDS_REVIEW",
+      "correct": true,
+      "confidence": 0.47,
+      "validation": "PASS",
+      "num_citations": 9,
+      "num_limits": 3,
+      "citation_recall": 0.5,
+      "gold_chunks": [
+        "P02-0005",
+        "P08-0023"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P07-0020",
+        "P08-0024",
+        "P07-0020",
+        "P09-0027",
+        "P02-0006"
+      ],
+      "latency_s": 0.03,
+      "key_findings": [
+        "hospitalization_definition: type=inpatient, admission_hours=96; inpatient >=24h meets hospitalization definition",
+        "waiting_period: continuous_coverage_months=15, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=['arthritis/gout/rheumatism', 'joint replacement']; continuous_coverage_months=15, prior_insurer_years=0; first-year disease waiting period satisfied (continuous/prior coverage)",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=15; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "sub_limit: normal room sub-limit=1.0% of SI/day = INR 3,000; ICU sub-limit=2.0% of SI/day; room expense declared=INR 150,000; admissible room amount depends on actual days and room category; room charge may exceed the per-day sub-l",
+        "pre_post_hospitalization_window: policy windows: pre=30 days, post=60 days; pre_hosp_expense=INR 0, post_hosp_expense=INR 0; no expense-timing metadata; windows applied by policy default",
+        "ambulance: ambulance limit min(1% of SI, INR 1000) = INR 1,000; declared INR 0",
+        "exclusion: no matching exclusion found in retrieved policy clauses",
+        "hospital_eligibility: hospital='Sunshine Day Surgery Centre', network_provider=False, registered=None, minimum_criteria_documented=None; non-network facility with no registration evidence => INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    {
+      "split": "custom",
+      "case_id": "CUS-005",
+      "expected": "NOT_ADMISSIBLE",
+      "predicted": "NOT_ADMISSIBLE",
+      "correct": true,
+      "confidence": 0.9,
+      "validation": "PASS",
+      "num_citations": 7,
+      "num_limits": 0,
+      "citation_recall": 0.0,
+      "gold_chunks": [
+        "P10-0029"
+      ],
+      "cited_chunks": [
+        "P07-0020",
+        "P09-0026",
+        "P09-0026",
+        "P08-0023",
+        "P08-0024",
+        "P09-0027",
+        "P02-0006"
+      ],
+      "latency_s": 0.02,
+      "key_findings": [
+        "hospitalization_definition: type=outpatient, admission_hours=4; outpatient treatment is excluded (exclusion 13)",
+        "waiting_period: continuous_coverage_months=33, prior_insurer_years=0; initial_waiting_days=30; 30-day waiting-period exception applies (continuous prior coverage)",
+        "specific_disease_waiting: matched_first_year_diseases=none; continuous_coverage_months=33, prior_insurer_years=0; diagnosis/procedure not in the first-year waiting list",
+        "pre_existing_disease: pre_existing=False, continuous_coverage_months=33; ped_waiting_months=48; no pre-existing flag; PED waiting period not triggered",
+        "day_care: procedure=Symptomatic management and follow-up consultation; procedure is within the day-care / 24h-waiver list",
+        "exclusion: outpatient treatment is excluded (exclusion 13)",
+        "hospital_eligibility: hospital='Nova Wellness Clinic', network_provider=True, registered=None, minimum_criteria_documented=None; network hospital satisfies eligibility requirement"
+      ]
+    }
+  ],
+  "failures": []
+}
