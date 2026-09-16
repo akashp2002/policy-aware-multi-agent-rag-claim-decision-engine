@@ -307,7 +307,6 @@ through the hosting platform's secret manager and never committed to GitHub.
 - Live frontend and backend URLs are listed above.
 - `/health` and `/docs` are publicly available for API verification.
 - Twelve supplied public cases and five additional candidate cases are
-- Twelve supplied public cases and five additional candidate cases are
    evaluated by the reproducible harness.
 - The system exposes five specialized agents, typed state contracts, hybrid
    retrieval, citations, validation, abstention, and an execution trace.
