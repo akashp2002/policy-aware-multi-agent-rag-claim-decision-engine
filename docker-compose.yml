@@ -13,6 +13,7 @@ services:
       OPENAI_MODEL: "${OPENAI_MODEL:-gpt-4o-mini}"
       CORS_ORIGINS: "${CORS_ORIGINS:-http://localhost:8501}"
       MAX_REQUEST_BYTES: "${MAX_REQUEST_BYTES:-1048576}"
+      RERANK_ENABLED: "${RERANK_ENABLED:-true}"
     volumes:
       - ./backend/data:/app/data
     restart: unless-stopped

@@ -125,7 +125,7 @@ class HybridSearch:
         cand_chunk_ids = [self._chunk_ids[i] for i in cand_idx]
 
         # Reranking
-        if with_rerank and cand_texts:
+        if with_rerank and self.emb_service.rerank_enabled and cand_texts:
             rerank_scores = self.emb_service.rerank(query, cand_texts, top_k=len(cand_texts))
             # sort by rerank score descending
             reranked_order = np.argsort(rerank_scores)[::-1]

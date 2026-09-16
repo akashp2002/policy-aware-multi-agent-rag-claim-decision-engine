@@ -73,7 +73,8 @@ def _build_orchestrator() -> AgentOrchestrator:
     _chunk_count = len(chunks)
 
     # 2. Embeddings + hybrid search
-    emb = EmbeddingService()
+    rerank_enabled = os.environ.get("RERANK_ENABLED", "true").lower() == "true"
+    emb = EmbeddingService(rerank_enabled=rerank_enabled)
     search = HybridSearch(chunks, emb)
 
     # 3. LLM provider (falls back to heuristic if no key)

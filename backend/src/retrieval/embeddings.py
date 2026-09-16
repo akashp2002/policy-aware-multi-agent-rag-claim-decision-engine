@@ -30,11 +30,13 @@ class EmbeddingService:
         cache_path: Path = EMBED_CACHE,
         device: str = "cpu",
         force_rebuild: bool = False,
+        rerank_enabled: bool = True,
     ) -> None:
         self.model_name = model_name
         self.cache_path = cache_path
         self.device = device
         self.force_rebuild = force_rebuild
+        self.rerank_enabled = rerank_enabled
         self._model = None
         self._reranker = None
 
@@ -106,6 +108,8 @@ class EmbeddingService:
         """
         if not documents:
             return []
+        if not self.rerank_enabled:
+            return [0.0] * len(documents)
         rr = self._get_reranker()
         k = len(documents) if top_k is None else min(top_k, len(documents))
         scores = list(rr.rerank(query=query, documents=documents, top_k=k))
