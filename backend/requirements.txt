@@ -1,0 +1,15 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+streamlit>=1.36
+python-dotenv>=1.0
+pypdf>=4.0
+rank-bm25>=0.2.2
+fastembed>=0.3.0
+onnxruntime>=1.18
+numpy>=1.26
+httpx>=0.27
+groq>=0.9
+langchain-groq>=0.1.0
+pytest>=8.0
+requests>=2.31

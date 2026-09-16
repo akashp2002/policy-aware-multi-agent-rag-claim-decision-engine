@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      CLAIM_LLM_PROVIDER: "${CLAIM_LLM_PROVIDER:-auto}"
+      GROQ_API_KEY: "${GROQ_API_KEY:-}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      OPENAI_BASE_URL: "${OPENAI_BASE_URL:-}"
+      OPENAI_MODEL: "${OPENAI_MODEL:-gpt-4o-mini}"
+      CORS_ORIGINS: "${CORS_ORIGINS:-http://localhost:8501}"
+      MAX_REQUEST_BYTES: "${MAX_REQUEST_BYTES:-1048576}"
+    volumes:
+      - ./backend/data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      CLAIM_API_BASE: "http://api:8000"
+    volumes:
+      - ./backend/custom_cases:/app/backend/custom_cases:ro
+      - ./backend/data:/app/backend/data:ro
+      - ./backend/src:/app/backend/src:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

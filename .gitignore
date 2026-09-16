@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.venv*/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment / secrets
+.env
+*.local
+
+# Model artifacts downloaded at runtime
+~/.cache/fastembed/
+.onnx/
+
+# Outputs
+backend/output/*.json
+backend/output/*.md
+
+# OS
+.DS_Store
+Thumbs.db

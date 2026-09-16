@@ -1,0 +1,182 @@
+[
+  {
+    "case_id": "CUS-001",
+    "policy_id": "USGIC-CSC-2017-2018",
+    "policy_start_date": "2024-01-01",
+    "claim_date": "2026-06-15",
+    "sum_insured_inr": 500000,
+    "continuous_coverage_months": 29,
+    "prior_insurer_continuous_years": 0,
+    "patient": { "age": 55 },
+    "hospital": { "name": "Advanced Cardiac Institute", "network_provider": true },
+    "treatment": {
+      "type": "inpatient",
+      "admission_hours": 72,
+      "diagnosis": "Coronary artery disease",
+      "procedure": "Coronary angioplasty with stent",
+      "pre_existing": false,
+      "experimental": false
+    },
+    "expenses_inr": {
+      "room": 60000,
+      "doctor_fees": 120000,
+      "medicines_diagnostics": 180000,
+      "pre_hospitalization": 12000,
+      "post_hospitalization": 15000,
+      "ambulance": 2500
+    },
+    "documents": [
+      "claim_form",
+      "discharge_summary",
+      "itemized_bill",
+      "angiography_report",
+      "doctor_prescription",
+      "pre_post_expense_records"
+    ],
+    "expense_timing": {
+      "pre_hospitalization_days_before_admission": 15,
+      "post_hospitalization_days_after_discharge": 45,
+      "same_condition_confirmed": true
+    },
+    "task": "Assess admissibility, apply the room sub-limit and the ambulance cap, and state the deductible amounts. This case tests combining multiple limits from separate policy clauses."
+  },
+  {
+    "case_id": "CUS-002",
+    "policy_id": "USGIC-CSC-2017-2018",
+    "policy_start_date": "2026-01-01",
+    "claim_date": "2026-03-01",
+    "sum_insured_inr": 500000,
+    "continuous_coverage_months": 2,
+    "prior_insurer_continuous_years": 0,
+    "patient": { "age": 31 },
+    "hospital": { "name": "Green Valley Hospital", "network_provider": true },
+    "treatment": {
+      "type": "inpatient",
+      "admission_hours": 48,
+      "diagnosis": "Acute tonsillitis",
+      "procedure": "Tonsillectomy",
+      "pre_existing": false,
+      "experimental": false
+    },
+    "expenses_inr": {
+      "room": 12000,
+      "doctor_fees": 18000,
+      "medicines_diagnostics": 25000,
+      "pre_hospitalization": 0,
+      "post_hospitalization": 2000,
+      "ambulance": 0
+    },
+    "documents": [
+      "claim_form",
+      "discharge_summary",
+      "itemized_bill",
+      "doctor_prescription"
+    ],
+    "task": "Determine whether the specific-disease waiting period for tonsillectomy applies and what the correct decision is. Treatment is otherwise covered."
+  },
+  {
+    "case_id": "CUS-003",
+    "policy_id": "USGIC-CSC-2017-2018",
+    "policy_start_date": "2024-01-01",
+    "claim_date": "2026-05-20",
+    "sum_insured_inr": 500000,
+    "continuous_coverage_months": 28,
+    "prior_insurer_continuous_years": 0,
+    "patient": { "age": 42 },
+    "hospital": { "name": "Metro General Hospital", "network_provider": true },
+    "treatment": {
+      "type": "inpatient",
+      "admission_hours": 96,
+      "diagnosis": "Acute appendicitis",
+      "procedure": "Appendectomy",
+      "pre_existing": false,
+      "experimental": false
+    },
+    "expenses_inr": {
+      "room": 8000,
+      "doctor_fees": 20000,
+      "medicines_diagnostics": 40000,
+      "pre_hospitalization": 0,
+      "post_hospitalization": 0,
+      "ambulance": 0
+    },
+    "documents": [
+      "claim_form",
+      "discharge_summary",
+      "itemized_bill",
+      "doctor_prescription"
+    ],
+    "task": "Assess whether the claim satisfies all policy conditions and identify the applicable room sub-limit. This is a case designed to be fully admissible with a single sub-limit deduction."
+  },
+  {
+    "case_id": "CUS-004",
+    "policy_id": "USGIC-CSC-2017-2018",
+    "policy_start_date": "2025-06-01",
+    "claim_date": "2026-09-20",
+    "sum_insured_inr": 300000,
+    "continuous_coverage_months": 15,
+    "prior_insurer_continuous_years": 0,
+    "patient": { "age": 60 },
+    "hospital": { "name": "Sunshine Day Surgery Centre", "network_provider": false },
+    "treatment": {
+      "type": "inpatient",
+      "admission_hours": 96,
+      "diagnosis": "Chronic knee osteoarthritis",
+      "procedure": "Knee replacement surgery",
+      "pre_existing": false,
+      "experimental": false
+    },
+    "expenses_inr": {
+      "room": 150000,
+      "doctor_fees": 100000,
+      "medicines_diagnostics": 200000,
+      "pre_hospitalization": 0,
+      "post_hospitalization": 0,
+      "ambulance": 0
+    },
+    "documents": [
+      "claim_form",
+      "discharge_summary",
+      "itemized_bill"
+    ],
+    "evidence_context": {
+      "hospital_registered": null,
+      "hospital_minimum_criteria_documented": null,
+      "medical_necessity_confirmed": null
+    },
+    "task": "The bill exceeds the sum insured and the non-network facility's registration is undocumented. Determine what can be safely decided and what requires review."
+  },
+  {
+    "case_id": "CUS-005",
+    "policy_id": "USGIC-CSC-2017-2018",
+    "policy_start_date": "2024-01-01",
+    "claim_date": "2026-10-01",
+    "sum_insured_inr": 500000,
+    "continuous_coverage_months": 33,
+    "prior_insurer_continuous_years": 0,
+    "patient": { "age": 28 },
+    "hospital": { "name": "Nova Wellness Clinic", "network_provider": true },
+    "treatment": {
+      "type": "outpatient",
+      "admission_hours": 4,
+      "diagnosis": "Acute gastritis",
+      "procedure": "Symptomatic management and follow-up consultation",
+      "pre_existing": false,
+      "experimental": false
+    },
+    "expenses_inr": {
+      "room": 0,
+      "doctor_fees": 6000,
+      "medicines_diagnostics": 14000,
+      "pre_hospitalization": 0,
+      "post_hospitalization": 0,
+      "ambulance": 0
+    },
+    "documents": [
+      "claim_form",
+      "opd_prescription",
+      "itemized_bill"
+    ],
+    "task": "Determine whether outpatient treatment is covered. The case contains an attribute (admission_hours) that is not relevant to the policy decision for outpatient care."
+  }
+]
