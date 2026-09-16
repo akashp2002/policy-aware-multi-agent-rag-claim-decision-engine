@@ -70,7 +70,7 @@ The evidence agent performs focused searches per decision dimension rather than 
 
 The default decision path is deterministic. Numeric policy rules are extracted from retrieved text and applied by Python rule logic, while an optional LLM provider is used for query refinement only. This keeps evaluation reproducible and prevents an LLM from silently overriding policy rules. The trade-off is narrower coverage of unusual clauses than a fully generative approach.
 
-Citations are selected from coverage findings and limited to keep responses readable. The evaluation therefore measures both decision accuracy and curated citation recall. The current report achieves 17/17 expected decision labels and 100% validation pass rate, while mean curated citation recall is 38.2%. That gap is intentional to expose evidence-quality limitations rather than hide them behind the decision score.
+Citations are selected from coverage findings and limited to keep responses readable. The evaluation therefore measures both decision accuracy and curated citation recall. The current report achieves 17/17 expected decision labels and 100% validation pass rate, while mean curated citation recall is 61.8%. That gap is intentional to expose evidence-quality limitations rather than hide them behind the decision score.
 
 The system has two abstention safeguards: missing case/document evidence produces `NEEDS_REVIEW`, and unsupported citation claims trigger validation retries followed by a conservative downgrade. This favors review over an ungrounded denial or admission.
 
@@ -78,11 +78,12 @@ The system has two abstention safeguards: missing case/document evidence produce
 
 `backend/src/evaluation/run_evaluation.py` runs all 12 public cases and 5 candidate-created cases. It reports exact decision accuracy, validation pass rate, citation recall against curated gold chunks, citation coverage, confidence, latency, confusion matrix, and per-case details under `backend/output/`.
 
-The backend exposes `GET /health` and `POST /analyze`. Local deployment uses Uvicorn for the API and Streamlit for the UI. Docker Compose starts the API on port 8000 and the frontend on port 8501. LLM credentials are supplied through environment variables; the application works without credentials using the deterministic fallback.
+The backend exposes `GET /health` and `POST /analyze`. Local deployment uses Uvicorn for the API and Streamlit for the UI. Docker Compose starts the API on port 8000 and the frontend on port 8501. The live frontend is hosted at https://policy-aware-multi-agent-rag-claim-decision-engine-qxfyty8m9ws.streamlit.app/ and calls the live API at https://claim-decision-api.onrender.com/. LLM credentials are supplied through environment variables; the application works without credentials using the deterministic fallback. The free-tier API sets `RERANK_ENABLED=false` to avoid loading the cross-encoder on a 512 MB instance, while dense+sparse retrieval remains active.
 
 ## Known limitations
 
 - Curated gold chunks are a useful proxy, not a complete proof of citation correctness.
 - Citation capacity and per-finding selection reduce recall for cases with many competing dimensions.
 - Rule extraction covers the policy sections currently implemented; obscure clauses may be retrieved without a dedicated rule.
-- The local Docker configuration is reproducible, but a public hosted URL must be supplied separately for an external submission.
+- Free hosting may sleep or restart, and first-request latency can increase while the embedding model loads.
+- Public deployment should add platform authentication and rate limiting before exposing `/analyze` to untrusted users.

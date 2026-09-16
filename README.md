@@ -57,6 +57,18 @@ Run with: `python -m src.evaluation.run_evaluation`
 - Mean confidence: 0.84 · Mean latency: 3.35 s/case (single process)
 - Mean citation recall@k against curated gold clauses: **61.8%** (see "Known limits")
 
+## Live Demo
+
+- **Frontend:** [Streamlit reviewer application](https://policy-aware-multi-agent-rag-claim-decision-engine-qxfyty8m9ws.streamlit.app/)
+- **Backend API:** [FastAPI service](https://claim-decision-api.onrender.com/)
+- **API health:** [Live health check](https://claim-decision-api.onrender.com/health)
+- **API documentation:** [Swagger UI](https://claim-decision-api.onrender.com/docs)
+
+The hosted demo uses the deterministic policy-rule fallback and does not
+require an external LLM API key. The free Render instance may sleep after
+inactivity, so the first request can take longer while the embedding model
+loads.
+
 ## Quickstart
 
 ```bash
@@ -77,7 +89,7 @@ uvicorn src.api.main:app --reload --port 8000
 curl http://localhost:8000/health
 curl -X POST http://localhost:8000/analyze \
   -H "Content-Type: application/json" \
-  -d @custom_cases/candidate_test_cases.json   # (first element only in practice)
+   -d '{"case": {"case_id": "CUS-005", "treatment": {"type": "outpatient"}}}'
 ```
 
 ### Frontend
@@ -88,9 +100,10 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-By default the frontend calls the backend at `http://localhost:8000`; if it is
-unreachable it falls back to loading the pipeline in-process (reading the
-backend package from `../backend/src`). Set `CLAIM_API_BASE` to override.
+By default the local frontend calls `http://localhost:8000`. For hosted
+Streamlit, set the `CLAIM_API_BASE` secret to the deployed API URL and set
+`ALLOW_IN_PROCESS_FALLBACK=false`; the hosted frontend should call the public
+backend rather than attempt to load backend files locally.
 
 ## LLM configuration
 
@@ -152,7 +165,9 @@ README.md
 2. **Cross-encoder rerank on top of RRF fusion.** BM25 (sparse) and bge-small
    (dense) are fused with Reciprocal Rank Fusion, then re-ranked with
    `ms-marco-MiniLM-L-6-v2`. This materially improves precision on clause-heavy
-   queries without needing a GPU (all models run in ONNX on CPU).
+   queries without needing a GPU (all models run in ONNX on CPU). The hosted
+   free-tier deployment sets `RERANK_ENABLED=false` to stay below the 512 MB
+   memory limit; dense+sparse retrieval and RRF remain active there.
 
 3. **Deterministic, reproducible decisions.** The coverage rules
    (sub-limits, waiting periods, windows, domiciliary/day-care treatment,
@@ -249,7 +264,7 @@ Do not commit a real `.env` file or API keys. At minimum, configure the
 frontend origin for the deployed API:
 
 ```text
-CORS_ORIGINS=https://your-frontend.example.com
+CORS_ORIGINS=https://policy-aware-multi-agent-rag-claim-decision-engine-qxfyty8m9ws.streamlit.app
 MAX_REQUEST_BYTES=1048576
 ```
 
@@ -263,3 +278,40 @@ the hosting provider's secret store for `GROQ_API_KEY` or `OPENAI_API_KEY`.
 Restrict `CORS_ORIGINS` to the actual frontend URL, keep the default request
 limit unless a larger claim schema is required, and add platform-level
 authentication/rate limiting before exposing `/analyze` to untrusted users.
+
+### Hosted deployment settings
+
+For the current live deployment:
+
+**Render API environment variables**
+
+```text
+CLAIM_LLM_PROVIDER=auto
+CORS_ORIGINS=https://policy-aware-multi-agent-rag-claim-decision-engine-qxfyty8m9ws.streamlit.app
+MAX_REQUEST_BYTES=1048576
+RERANK_ENABLED=false
+```
+
+**Streamlit Cloud secrets**
+
+```toml
+CLAIM_API_BASE = "https://claim-decision-api.onrender.com"
+ALLOW_IN_PROCESS_FALLBACK = "false"
+```
+
+No LLM key is required for the live demo. Provider keys should be added only
+through the hosting platform's secret manager and never committed to GitHub.
+
+## Submission checklist
+
+- Live frontend and backend URLs are listed above.
+- `/health` and `/docs` are publicly available for API verification.
+- Twelve supplied public cases and five additional candidate cases are
+- Twelve supplied public cases and five additional candidate cases are
+   evaluated by the reproducible harness.
+- The system exposes five specialized agents, typed state contracts, hybrid
+   retrieval, citations, validation, abstention, and an execution trace.
+- Failure analysis and the architecture note are included in `docs/` and this
+   README.
+- Generated evaluation reports are included under `backend/output/`.
+- No credentials are committed; `.env.example` contains placeholders only.
