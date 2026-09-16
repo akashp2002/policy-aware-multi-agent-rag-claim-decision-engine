@@ -29,7 +29,19 @@ BACKEND_SRC  = BACKEND_DIR / "src"
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
-API_BASE = os.environ.get("CLAIM_API_BASE", "http://localhost:8000")
+def _configured_api_base() -> str:
+    """Read the API URL from hosting secrets, environment, or local default."""
+    try:
+        secret_value = st.secrets.get("CLAIM_API_BASE")
+    except Exception:
+        secret_value = None
+    return (secret_value or os.environ.get("CLAIM_API_BASE") or "http://localhost:8000").rstrip("/")
+
+
+API_BASE = _configured_api_base()
+ALLOW_IN_PROCESS_FALLBACK = (
+    os.environ.get("ALLOW_IN_PROCESS_FALLBACK", "true").lower() == "true"
+)
 
 st.set_page_config(page_title="Claim Decision Engine", page_icon=":clipboard:", layout="wide")
 
@@ -121,7 +133,7 @@ if st.button("Analyze claim", type="primary"):
             result = run_via_api(case) if use_api else run_via_process(case)
             status.update(label="Analysis complete", state="complete")
         except Exception:
-            if use_api:
+            if use_api and ALLOW_IN_PROCESS_FALLBACK:
                 st.info("API unreachable — falling back to in-process pipeline.")
                 status.update(label="Running in-process fallback", state="running")
                 try:
@@ -130,6 +142,12 @@ if st.button("Analyze claim", type="primary"):
                 except Exception as exc:
                     st.error(f"Pipeline error: {exc}")
                     st.stop()
+            elif use_api:
+                st.error(
+                    f"Could not reach the configured API at {API_BASE}. "
+                    "Check CLAIM_API_BASE in the hosting settings."
+                )
+                st.stop()
             else:
                 st.error("Pipeline error.")
                 raise
